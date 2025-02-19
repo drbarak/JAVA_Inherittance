@@ -13,4 +13,11 @@ public class B2 extends A2
         pN("B2 ");
         return ((other != null) && _i == other._i);
     }
+    /*
+    public boolean equals(Object other)
+    {
+        pN("B2 ");
+        return ((other != null));// && _i == other._i);
+    }
+    */
 }

@@ -33,8 +33,8 @@
  *                      but 
  *       Parnet p = new B(); // Upcasting (implicit) 
  *       B bb = (B) p;  // valid 
- *     In general: castןng is allowed if the classes has direct inherittance link.
- *     That is, they are at the same branch of the inherittance: A() extends P()
+ *     In general: casting is allowed if the classes has direct inheritance link.
+ *     That is, they are at the same branch of the inheritance: A() extends P()
  *     casting between A and P is allowed, the same if B() extends P() but not
  *     between A() and B()
  *     At compilation: son to father -> allowed automatically
@@ -46,20 +46,21 @@
  *                                     Son s = (Son)f; -> valid
  *     However:
  *              Father f = new Father(); Son s = (Son)f; no compilation error
- *              because Son and Father are on the inherittance branch, 
+ *                  because Son and Father are on the inheritance branch, 
  *              BUT gets a Runtime error because f in memory does not have 
- *              a part of Son.
+ *                  a part of Son.
  *  4. Creating a class: using implicit empty constructor:
  *      - Cannot create a class type subclass from a superclass, only from
  *          it's own class or subclass below, same way a class of type X cannot
  *          create from a class Y that has no relation to it (X x = new Y() gives
  *          a compilation error.
+ *          Son s = new Father() - compilation error.
  *      - When no constructor is defind at all in a class, the default empty
  *          constructor is used (when it is not a subclass).
  *      - If the class has a non empty constructor, and no empty one, then
  *          that constructor must be used, otherwise compilation error.
  *      - If the class has a non empty constructor, and empty one, then
- *          one of them constructor must be used, otherwise compilation error.
+ *          one of the constructors must be used, otherwise compilation error.
  *  5. Creating a subclass:
  *      - If there is a constructor, it MUST first create the parent.
  *      - If no empty constuctor in the subclass, then one of the non-empty
@@ -127,11 +128,11 @@
  *      Example: given an array of objects of type A which some of them implemented
  *      as ojects of B eg. A a = new B()). Given a method justInB() will give a
  *      compilation error if we do a.justInB() because it does not exist in A. 
- *      The problem can solved by casting ((B)a).justInB(). Thus, given the array 
+ *      The problem can be solved by casting ((B)a).justInB(). Thus, given the array 
  *          A[] array = new A[3]; a[0] = new A(); a[1] = new B(); a[2] = new B(),
  *      the statement "for (int i=0; i<array.length,i++) array[i].justInB(); gives a
  *      compilation error because array is type A and A does not have a method 
- *      justInB(). but downcasting array to B using ((B) array[i]) will fix the
+ *      justInB(). But downcasting array to B using ((B) array[i]) will fix the
  *      compilation error.
  *      Note 1: notice that the casting must be enclosed in extra bracket so it is
  *          clear on what object the casting is done.
@@ -150,13 +151,13 @@
  *      "pointer" to the object.
  *      Thus, at compilation, as long as there is a relation between the class
  *      and the casting class, the compiler accepts it. But at runtime, Java 
- *      checks whether the object being cast (A aa = new A(), an instance of A)
+ *      checks whether the object being castrd (A aa = new A(), an instance of A)
  *      is actually an instance of B. Since A is not a subclass of B (it's a base
  *      class), the cast is invalid, and a run time error occurs.
  *      Note: the compiler only looks at the casting and not at the new A() or 
  *      new B() - so it passes statements that can give runtime error due to the
- *      new() statement (B and be converted to A since B includes also an A part,
- *      but A cannot be converted (cast) to B since A does not have a B part)/
+ *      new() statement (B can be converted to A since B includes also an A part,
+ *      but A cannot be converted (cast) to B since A does not have a B part).
  *  11. Calling a method in the super class, using super.method() does not cause
  *      any other methods inside super.method() to be confined to the super 
  *      class methods. Unless explicitly called with "super." keyword it starts
@@ -186,10 +187,15 @@
  *      runtime types. If it does
  *      not exists we check if it exists in the superClasses until Object. If
  *      not found then 
- *  The method used at runtime depends on the compile-time type of the 
+ *      The method used at runtime depends on the compile-time type of the 
  *      reference (pointer) and the runtime type of the object.
  *      At runtime, the actual type of the object (the runtime type) determines
  *      which implementation of the method is executed.
  *      This applies only to methods that override (not overload) a method in the
  *      superclass.
+ *  14. Dynamic dispatch works on method BUT NOT ON PROPERTIES. The pointer
+ *      determines what properties we use. Thus if BB is a subclass of AA, and
+ *      _x is a property both in AA and BB, and AA a = new BB(), then the
+ *      statement a._x uses the property _x of AA and not of BB!!
+ *      
  */
